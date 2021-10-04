@@ -4,8 +4,12 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import lombok.Getter;
+import study.jpa.domains.item.domain.Item;
+import study.jpa.domains.order.domain.Order;
 
 @Getter
 @Entity
@@ -16,12 +20,18 @@ public class OrderItem {
   @Column(name = "order_item_id")
   private Long id;
 
-  @Column(name = "item_id")
-  private Long itemId;
+  @ManyToOne
+  @JoinColumn(name = "item_id")
+  private Item item;
 
-  @Column(name = "order_id")
-  private Long orderId;
+  @ManyToOne
+  @JoinColumn(name = "order_id")
+  private Order order;
 
   private int orderPrice;
   private int count;
+
+  public void setOrder(Order order) {
+    this.order = order;
+  }
 }
